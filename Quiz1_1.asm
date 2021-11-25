@@ -18,3 +18,11 @@ line:   .asciiz "\n"
         .text
         .globl main
 
+main:
+        la      $a0, input      # load input prompt
+        li      $v0, 4          # print input prompt
+        syscall
+        li      $v0, 5          # read integer
+        syscall
+
+        
