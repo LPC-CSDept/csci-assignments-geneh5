@@ -29,10 +29,26 @@ main:
         cvt.s.w $f0, $f0        # convert from int to single precision FP
         
         l.s     $f1, num1       # load 32.0
+        nop
         sub.s   $f0, $f0, $f1   # subtract 32.0
-        l.s     $f1, num2       # load 5.0
-        mul.s   $f0, $f0, $f1   # multiply by 5.0
-        l.s     $f1, num3       # load 9.0
-        div.s   $f0, $f0, $f1   # divide by 9.0
 
+        l.s     $f2, num2       # load 5.0
+        nop
+        mul.s   $f0, $f0, $f2   # multiply by 5.0
         
+        l.s     $f3, num3       # load 9.0
+        nop
+        div.s   $f0, $f0, $f3   # divide by 9.0
+
+        mov.s   $f12, $f0       # move result value into float print register
+
+        la      $a0, line       # new line
+        li      $v0, 4          # print string
+        syscall
+        la      $a0, done       # load done prompt
+        syscall
+        li      $v0, 2          # print float
+        syscall
+
+        li      $v0, 10         # exit code
+        syscall
