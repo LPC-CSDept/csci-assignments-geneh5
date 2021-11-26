@@ -46,3 +46,13 @@ main:
         li      $v0, 6              # read float
         syscall
         mov.s   $f4, $f0            # move to FP register
+
+        mul.s   $f0, $f4, $f4       # x * x
+        nop
+        mul.s   $f0, $f0, $f1       # a * x^2
+        nop
+        mul.s   $f1, $f4, $f2       # b * x
+        nop
+        add.s   $f0, $f0, $f1       # ax^2 + bx
+        add.s   $f0, $f0, $f3       # ax^2 + bx + c
+        
