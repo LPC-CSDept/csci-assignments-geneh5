@@ -55,4 +55,15 @@ main:
         nop
         add.s   $f0, $f0, $f1       # ax^2 + bx
         add.s   $f0, $f0, $f3       # ax^2 + bx + c
-        
+        mov.s   $f12, $f0           # move value to FP register
+
+        la      $a0, line           # new line
+        li      $v0, 4              # print string
+        syscall
+        la      $a0, done           # load ending string
+        syscall
+        li      $v0, 2              # print float
+        syscall
+
+        li      $v0, 10             # exit code
+        syscall
