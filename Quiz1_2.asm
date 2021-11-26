@@ -14,3 +14,35 @@ inputc: .asciiz "Input value for variable 'c': "
 inputx: .asciiz "Input value for variable 'x': "
 done:   .asciiz "ax^2 + bx + c = "
 line:   .asciiz "\n"
+
+        .text
+        .globl main
+
+main:
+        la      $a0, inputa         # load inputa 
+        li      $v0, 4              # print string
+        syscall
+        li      $v0, 6              # read float
+        syscall
+        mov.s   $f1, $f0            # move to FP register
+
+        la      $a0, inputb         # load inputb 
+        li      $v0, 4              # print string
+        syscall
+        li      $v0, 6              # read float
+        syscall
+        mov.s   $f2, $f0            # move to FP register
+
+        la      $a0, inputc         # load inputc 
+        li      $v0, 4              # print string
+        syscall
+        li      $v0, 6              # read float
+        syscall
+        mov.s   $f3, $f0            # move to FP register
+
+        la      $a0, inputx         # load inputx 
+        li      $v0, 4              # print string
+        syscall
+        li      $v0, 6              # read float
+        syscall
+        mov.s   $f4, $f0            # move to FP register
