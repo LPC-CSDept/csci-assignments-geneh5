@@ -38,3 +38,15 @@ loop:
 	    c.lt.s	$f5, $f10	        # check if less than terminate
 	    bc1f	loop		        # loop
 	    nop
+
+        mov.s	$f12, $f4	        # move to print result
+	    la	$a0, line	            # load new line
+	    li	$v0, 4	
+	    syscall
+	    la	$a0, done	            # load done string
+	    syscall
+	    li	$v0, 2		            # print float
+	    syscall
+
+	    li	$v0, 10		            # exit code
+	    syscall
