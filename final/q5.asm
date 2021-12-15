@@ -52,3 +52,13 @@ second:
 
         b       loop                    # branch back to loop
         nop                             # delay slot after branch
+
+done:
+        addu    $a0, $s0, $s1           # add third digit and first digit
+        addu    $a0, $a0, $s2           # add second digit to sum of third and first digit
+
+        li      $v0, 1                  # load print integer code
+        syscall
+
+        li      $v0, 10                 # program exit code
+        syscall
