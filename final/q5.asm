@@ -22,3 +22,9 @@ loop:
         andi    $t2, $t2, 0x0001        # reset all bits except lowest order bit
         beqz    $t0, done               # branch to loop if ready bit is not 1
         nop                             # delay slot after branch
+
+        lw      $s0, 4($t1)             # ready bit is 1, load receiver data address
+        sub     $s0, $s0, 48            # subtract ascii code to get digit value
+        sub     $t0, $t0, 1             # subtract counter for loop
+        beqz    $t0, done               # finished reading 3 digits, branch to done
+        nop                             # delay slot after branch
