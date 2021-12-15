@@ -18,4 +18,7 @@ main:
         lui     $t1, 0xFFFF             # load receiver control address in kernel
 
 loop:
-        
+        lw      $t2, 0($t1)             # load from input control register
+        andi    $t2, $t2, 0x0001        # reset all bits except lowest order bit
+        beqz    $t0, done               # branch to loop if ready bit is not 1
+        nop                             # delay slot after branch
