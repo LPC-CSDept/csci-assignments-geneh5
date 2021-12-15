@@ -8,3 +8,8 @@ input:  .asciiz "Enter digit: "         # input prompt
 
         .text
         .globl main
+
+main:
+        la      $a0, input
+        li      $v0, 4
+        syscall
