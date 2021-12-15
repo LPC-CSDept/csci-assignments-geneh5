@@ -38,3 +38,17 @@ loop:
 
         beq     $t0, $t4, sec           # branch to sec on second digit
         nop                             # delay slot after branch
+
+first:
+        mult    $s0, $t5                # multiply first digit by 100
+        mflo    $s1                     # put value into s1
+
+        b       loop                    # branch back to loop
+        nop                             # delay slot after branch
+
+second:
+        mult    $s0, $t6                # multiply second digit by 10
+        mflo    $s2                     # put value into s2
+
+        b       loop                    # branch back to loop
+        nop                             # delay slot after branch
