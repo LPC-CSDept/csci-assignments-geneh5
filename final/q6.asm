@@ -24,3 +24,8 @@ main:
         mfc0    $a0, $12            # move from c0 (status register)
         ori     $a0, 0xFF11         # enable all interrupts in $12
         mtc0    $a0, $12            # move to c0 (status register)
+
+        lui     $t0, 0xFFFF         # set $t0 to 0xFFFF0000
+        ori     $a0, $zero, 2       # allow keyboard interrupts
+        sw      $a0, 0($t0)         # store in receiver control register
+        
