@@ -28,6 +28,7 @@ main:
         lui     $t0, 0xFFFF         # set $t0 to 0xFFFF0000
         ori     $a0, $zero, 2       # allow keyboard interrupts
         sw      $a0, 0($t0)         # store in receiver control register
+        li      $s0, 113            # constant to check if entered character is 'q'
         
 infLoop:
         j       infLoop             # infinitely jump to this label until interrupt
@@ -43,4 +44,8 @@ infLoop:
         andi    $a0, $a0, 0x1f      # get the exception code only and store in a0
         bne     $a0, $zero, done    # branch to done if the exception code is not 0 (code 0 represents interrupt)
         nop
-        
+
+        lui     $v0, 0xFFFF         # set v0 to 0xFFFF0000
+        lw      $a0, 4($v0)
+        beq     $a0, $s0, end       # branch to end if the inputted character is 'q'
+        nop
