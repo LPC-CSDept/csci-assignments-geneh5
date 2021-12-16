@@ -66,3 +66,5 @@ done:
         eret                        # return to EPC
 
 end:
+        li      $v0, 10             # program end code
+        syscall
