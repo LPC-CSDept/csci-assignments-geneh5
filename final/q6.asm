@@ -37,3 +37,10 @@ infLoop:
         .ktext  0x80000180          # kernel code starts at this address
         sw      $v0, s1             # store s1 into $v0
         sw      $a0, s2             # store s2 into $a0
+
+        mfc0    $k0, $13            # move from cause register to kernel
+        srl     $a0, $k0, 2         # shift right by 2 as the exception code field starts at bit 2
+        andi    $a0, $a0, 0x1f      # get the exception code only and store in a0
+        bne     $a0, $zero, done    # branch to done if the exception code is not 0 (code 0 represents interrupt)
+        nop
+        
