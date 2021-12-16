@@ -49,3 +49,15 @@ infLoop:
         lw      $a0, 4($v0)
         beq     $a0, $s0, end       # branch to end if the inputted character is 'q'
         nop
+
+        li      $v0, 1              # code to print character loaded
+        syscall
+        la      $a0, line           # load address of new line string
+        li      $v0, 4              # code to print string
+        syscall
+
+done:
+
+
+
+end:
