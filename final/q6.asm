@@ -29,3 +29,11 @@ main:
         ori     $a0, $zero, 2       # allow keyboard interrupts
         sw      $a0, 0($t0)         # store in receiver control register
         
+infLoop:
+        j       infLoop             # infinitely jump to this label until interrupt
+        nop
+
+
+        .ktext  0x80000180          # kernel code starts at this address
+        sw      $v0, s1             # store s1 into $v0
+        sw      $a0, s2             # store s2 into $a0
