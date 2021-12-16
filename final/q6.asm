@@ -57,7 +57,12 @@ infLoop:
         syscall
 
 done:
-
-
+        lw      $v0, s1             # restore registers to previous state
+        lw      $a0, s2
+        mtc0    $zer0, $13          # make status register all 0 (cleared)
+        mfc0    $k0, $12            # move cause register to kernel register
+        ori     $k0, 0x11           # interrupt enable bit set to 1
+        mtc0    $k0, $12            # move updated bit pattern to status register
+        eret                        # return to EPC
 
 end:
