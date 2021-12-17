@@ -1,0 +1,40 @@
+#
+# q6_elaboration.txt
+# Gene Han
+#
+
+Kernel Data Segment:
+The kernel data segment contains 2 variables that act as pointers to the stack.
+Data segment:
+The data segment contains the prompt that asks for character input and a new line.
+
+Text Segment:
+The first code block loads the address of the input prompt string and prints it to the console.
+The next 3 instructions take the bit pattern of the status register and changes it.
+The bit pattern is modified so bits 8-15, bit 4, and bit 0 are set to 1. These bits
+represent the interrupt mask, user mode, and interrupt enable bits. The mask determines
+what level of interrupt is allowed and the interrupt enable bit allows interrupts at all.
+A temporary register is used to hold 0xFFFF0000. This is the location of the receiver control
+register. a0 which was changed to 2 is stored into that register to allow keyboard interrupts.
+A constant is created which represents the ascii code for 'q'.
+
+infLoop:
+This label is used to do nothing until an interrupt occurs.
+
+Kernel Text Segment:
+First we store s1 and s2 into v0 and a0.
+Next we move the bit pattern of the cause register to a kernel register. We shift this pattern
+to the right by 2 because the exception code field starts at bit 2.
+This exception code is then saved in a0 and compared to 0 as if the code is not 0, it represents
+that the exception was not caused by hardware interrupt.
+Next we set a constant to 0xFFFF0000 and load this address to a0 offset by 4. This is the 
+receiver data register. The inputted character is then compared to the constant
+representing the ascii value of 'q' and will branch if it is equal.
+The character is then printed as well as a new line.
+
+Done:
+The stack is then restored after its use. The status register is cleared (changed all bits to 0).
+The cause register has its interrupt enable bit set to 1 as to enable future interrupts.
+Eret returns to the next instruction before the interrupt.
+End:
+Ends the program via the program end code.
