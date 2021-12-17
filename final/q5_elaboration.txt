@@ -1,0 +1,41 @@
+#
+# q5_elaboration.txt
+# Gene Han
+#
+
+This program takes 3 digits as input via memory mapped I/O and outputs a 3 digit decimal number.
+Data Segment:
+The data segment consists of an asciiz input prompt that is found at the label input.
+
+Text Segment:
+The first code block loads the address of the input string and prints it to the console.
+The next set of instructions load immediate values to be used as constants into temporary registers.
+
+Loop:
+The first code block of the loop loads the address found in $t1 with 0 offset. This address is 0xFFFF0000.
+This address is the location of the start of the kernel level of memory mapped I/O and the memory location of
+the receiver control register. The next instruction will reset all of the bits except for the lowest order bit.
+This bit is important because in the receiver control register it is the ready bit. It determines whether the register
+is ready to receive data. We will then branch to done if that value is equal to 0 as it means that the receiver control
+register is not ready.
+Next 0xFFFF is loaded with an offset of 4. This is the memory location of the receiver data register. We have to
+subtract the value by 48 as the ascii code of decimal numbers are offset by 48. The next few instruction check
+if the counter is at 0, 1, or 2 and branches accordingly.
+
+Branch to first:
+The instruction will branch to first on the first decimal. The decimal number will be multiplied by 100 and stored in
+a saved register.
+(digit1 = digit1 * 100)
+
+Branch to second:
+The instruction will branch to second on the second decimal. The decimal number will be multiplied by 10 and stored in
+a different saved register.
+(digit2 = digit2 * 10)
+
+Done:
+The first, second, and third decimal will be added up after they have all been multiplied properly. The print integer
+code will be loaded and will print the decimal.
+(a0 = digit1 + digit2)
+(a0 = a0 + digit3)
+
+The program exit code will be loaded and the program will end.
